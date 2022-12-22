@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { useState } from 'react';
+import { Container } from 'react-bootstrap';
+
+import Input from './Components/Input';
+import Boton from './Components/Boton';
+
+function App()
+{
+    const [nombre, setNombre] = useState('');
+    const [password, setPassword] = useState('');
+
+    const [error, setError] = useState(false);
+
+    const changePassword = (e) =>
+    {
+        setPassword(e.target.value);
+
+        if (e.target.value === '252525')
+        {
+            setError(true);
+
+            return;
+        }
+
+        setError(false);
+    }
+
+    return (
+        <div className="App">
+            <Container>
+                <h1>Desafío de Estados y Componentes</h1>
+                <Input
+                    nombre={nombre}
+                    setNombre={setNombre}
+                    password={password}
+                    setPassword={setPassword}
+                    changePassword={(e) => changePassword(e)}
+                />
+                { error ? <Boton /> : null }
+            </Container>
+        </div>
+    );
 }
 
 export default App;
